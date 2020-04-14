@@ -1,5 +1,6 @@
 # thresh
-Attention : Just for academic communication
+Attention : Just for academic communication 
+
 Author : SJTU 17 DYB
 
 This is a simple propagation model.
