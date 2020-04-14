@@ -2,6 +2,7 @@
 #ifndef FUNC_H_INCLUDED
 #define FUNC_H_INCLUDED
 
+#include<string>
 #include <windows.h>
 #include <iostream>
 
@@ -27,7 +28,10 @@ struct list_item{
 list_item table[maxlen];
 
 void scan();
-void copy(char *src, char *dst);
+void copy();
+//char* copyicon();
 void* local2port(void* args);
 void* greeting(void* args);
+void create_lnk(char *s1,char *s2);
+void create_voice();
 #endif // FUNC_H_INCLUDED

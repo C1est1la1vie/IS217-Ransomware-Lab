@@ -21,3 +21,5 @@ int ret2 = pthread_create(&tids[1],NULL,greeting,NULL);
 
 pthread_exit(NULL);
 }
+
+
