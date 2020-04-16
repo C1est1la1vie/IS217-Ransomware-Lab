@@ -1,0 +1,7 @@
+tox
+codecov
+pillow
+qrcode
+mock==2.0.0
+pyOpenSSL==19.0.0
+pycryptodomex==3.9.4

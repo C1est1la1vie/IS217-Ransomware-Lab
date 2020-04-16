@@ -1,10 +1,17 @@
+# -*- coding: utf-8 -*-
+#
+# by nyLiao, 2020
+"""Class of generate and verify AliPay trade.
+"""
+
 import time
 from alipay import AliPay
-from PIL import Image
-#
-app_private_key_string = open("./alipay_trade/keys/app_private_key.pem").read()
-ali_public_key_string = open("./alipay_trade/keys/ali_public_key.pem").read()
-app_id_string = "2016102300746854"
+
+
+app_private_key_string = open("./keys/app_private_key.pem").read()
+ali_public_key_string = open("./keys/ali_public_key.pem").read()
+app_id_string = "2016102200736927"
+
 
 class tradeManager(AliPay):
     """Generate precreate QR code."""
@@ -37,9 +44,6 @@ class tradeManager(AliPay):
         if save_path:
             with open(save_path, 'wb') as f:
                 img.save(f)
-            f.close()
-            # tmp_img = Image.open(save_path)
-            # tmp_img.show()
         return img
 
     def gen_trade(self, amount, out_trade_no=None):
@@ -56,7 +60,6 @@ class tradeManager(AliPay):
             out_trade_no = time.strftime("%Y%m%d%H%M%S", time.gmtime())
 
         self._new_trade(amount=amount, out_trade_no=out_trade_no)
-        self.save_path = r"C:\Users\Administrator\Desktop\virus_c&s" + "\\" + out_trade_no + '.png'
         img = self._gen_qrcode(save_path=(out_trade_no + '.png'))
         return img, out_trade_no
 
@@ -79,26 +82,30 @@ class tradeManager(AliPay):
             out_trade_no = self.out_trade_no
         self.api_alipay_trade_cancel(out_trade_no=out_trade_no)
 
-    # def _watch_and_cancel(self):
-    #     """Debug use only.
-    #     Watch trade for 30s then cancel it.
-    #     """
-    #     paid = False
-    #     for i in range(3600):
-    #         time.sleep(2)
-    #         if self.paid_query():
-    #             paid = True
-    #             print("paid!")
-    #             self.sk.sendall(bytes("2", "utf-8"))
-    #             break
-    #         print("not paid...")
-    #
-    #     # order is not paid in 30s , cancel this order
-    #     if paid is False:
-    #         self.del_trade()
-    #         print("trade closed")
+    def _watch_and_cancel(self):
+        """Debug use only.
+        Watch trade for 30s then cancel it.
+        """
+        paid = False
+        for i in range(10):
+            time.sleep(3)
+            if self.paid_query():
+                paid = True
+                print("paid!")
+                break
+            print("not paid...")
 
-if __name__ == '__main__':
+        # order is not paid in 30s , cancel this order
+        if paid is False:
+            self._del_trade()
+            print("trade closed")
+
+
+def main():
     trade = tradeManager()
     img, num = trade.gen_trade(1.)
-    trade._watch_and_cancel()
+    trade.watch_and_cancel()
+
+
+if __name__ == '__main__':
+    main()

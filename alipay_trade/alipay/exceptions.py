@@ -1,5 +1,13 @@
+# From https://github.com/fzlee/alipay
 #!/usr/bin/env python
 # coding: utf-8
+"""
+    exceptions.py
+    ~~~~~~~~~~
+
+"""
+
+
 class AliPayException(Exception):
     def __init__(self, code, message):
         self.__code = code
