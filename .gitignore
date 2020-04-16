@@ -10,7 +10,6 @@
 # Precompiled Headers
 *.gch
 *.pch
-.idea/
 
 # Compiled Dynamic libraries
 *.so
@@ -58,6 +57,10 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# OS/IDE
+.idea
+.DS_Store
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -110,7 +113,6 @@ target/
 # IPython
 profile_default/
 ipython_config.py
-try.*
 
 # pyenv
 .python-version
